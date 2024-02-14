@@ -1,0 +1,36 @@
+.nav {
+    background-color: #85929E;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 50px;
+  }
+  
+  .navLinkclass {
+    text-decoration: none;
+    color:#ffffff; 
+    margin-right: 10px;
+    padding: 5px 10px;
+    font-weight: bold;
+    border-radius: 10px;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .navLinkclass:hover {
+    background-color: #cae0e3;
+    color: #333;
+  }
+  
+  .navLinkclass.logged-in {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+
+  .navLinkclass.active {
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+  }
+  

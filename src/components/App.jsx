@@ -7,10 +7,11 @@ import { fetchContacts } from '../redux/operations';
 import Register from '../pages/Register';
 import LoginPage from '../pages/LoginPage';
 import Contacts from './Contacts';
-import NotFound from '../pages/NotFound';
+// import NotFound from '../pages/NotFound';
 import UserMenu from './UserMenu';
 import Navigation from './Navigation';
 import { selectAuthIsLoggedIn } from '../redux/selectors';
+// import { apiRefreshUser } from '../redux/auth/authSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ export const App = () => {
     dispatch(fetchContacts());
   }, [dispatch]);
 
+  // useEffect(() => {
+  //   dispatch(apiRefreshUser());
+  // }, [dispatch]);
+
   return (
     <div>
       <Navigation />
@@ -28,7 +33,7 @@ export const App = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/contacts" element={<Contacts />} />
-        <Route path="*" element={<NotFound />} />
+        {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
     </div>
   );
