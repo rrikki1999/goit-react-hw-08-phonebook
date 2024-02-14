@@ -7,10 +7,12 @@ import { fetchContacts } from '../redux/operations';
 import Register from '../pages/Register';
 import LoginPage from '../pages/LoginPage';
 import Contacts from './Contacts';
-// import NotFound from '../pages/NotFound';
+import NotFound from '../pages/NotFound';
 import UserMenu from './UserMenu';
 import Navigation from './Navigation';
 import { selectAuthIsLoggedIn } from '../redux/selectors';
+import PrivateRoute from './PrivateRoute';
+import HomePage from 'pages/HomePage';
 // import { apiRefreshUser } from '../redux/auth/authSlice';
 
 export const App = () => {
@@ -30,10 +32,11 @@ export const App = () => {
       <Navigation />
       {isLoggedIn && <UserMenu />}
       <Routes>
+      <Route path="/" element={<HomePage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacts" element={<Contacts />} />
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route path="/contacts" element={<PrivateRoute><Contacts /></PrivateRoute>} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
   );
