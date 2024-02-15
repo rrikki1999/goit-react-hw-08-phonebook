@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchContacts } from '../redux/operations';
+// import { fetchContacts } from '../redux/operations';
 
 import Register from '../pages/Register';
 import LoginPage from '../pages/LoginPage';
@@ -13,19 +13,19 @@ import Navigation from './Navigation';
 import { selectAuthIsLoggedIn } from '../redux/selectors';
 import PrivateRoute from './PrivateRoute';
 import HomePage from 'pages/HomePage';
-// import { apiRefreshUser } from '../redux/auth/authSlice';
+import { apiRefreshUser } from '../redux/auth/authSlice';
 
 export const App = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectAuthIsLoggedIn); 
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
-
   // useEffect(() => {
-  //   dispatch(apiRefreshUser());
+  //   dispatch(fetchContacts());
   // }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(apiRefreshUser());
+  }, [dispatch]);
 
   return (
     <div>

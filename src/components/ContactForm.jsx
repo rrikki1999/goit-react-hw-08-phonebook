@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import  {addContact}  from '../redux/operations';
+import  {apiAddContact}  from '../redux/contactsSlice';
 
 import styles from '../styles/ContactForm.module.css';
 import { selectContacts } from '../redux/selectors';
@@ -33,7 +33,7 @@ const ContactForm = () => {
     const newContact = {
       ...formData,
     };
-    dispatch(addContact(newContact));
+    dispatch(apiAddContact(newContact));
     setName('');
     setNumber('');
   };
