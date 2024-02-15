@@ -8,6 +8,7 @@ import { apiRefreshUser } from '../redux/auth/authSlice';
 import { Loader } from './Loader';
 import PrivateRoute from './PrivateRoute';
 import styles from '../styles/Loader.module.css';
+import RestrictedRoute from './RestrictedRoute';
 
 const HomePage = lazy(() => import('../pages/HomePage'));
 const Register = lazy(() => import('../pages/Register'));
@@ -16,9 +17,6 @@ const Contacts = lazy(() => import('./Contacts'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const UserMenu = lazy(() => import('./UserMenu'));
 const Navigation = lazy(() => import('./Navigation'));
-
-
-
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -35,8 +33,22 @@ export const App = () => {
         {isLoggedIn && <UserMenu />}
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/register"
+            element={
+              <RestrictedRoute>
+                <Register />
+              </RestrictedRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <RestrictedRoute>
+                <LoginPage />
+              </RestrictedRoute>
+            }
+          />
           <Route
             path="/contacts"
             element={
