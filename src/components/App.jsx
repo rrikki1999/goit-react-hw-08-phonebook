@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { Suspense, lazy, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { fetchContacts } from '../redux/operations';
-
-import Register from '../pages/Register';
-import LoginPage from '../pages/LoginPage';
-import Contacts from './Contacts';
-import NotFound from '../pages/NotFound';
-import UserMenu from './UserMenu';
-import Navigation from './Navigation';
 import { selectAuthIsLoggedIn } from '../redux/selectors';
-import PrivateRoute from './PrivateRoute';
-import HomePage from 'pages/HomePage';
 import { apiRefreshUser } from '../redux/auth/authSlice';
+
+import { Loader } from './Loader';
+import PrivateRoute from './PrivateRoute';
+import styles from '../styles/Loader.module.css';
+
+const HomePage = lazy(() => import('../pages/HomePage'));
+const Register = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/LoginPage'));
+const Contacts = lazy(() => import('./Contacts'));
+const NotFound = lazy(() => import('../pages/NotFound'));
+const UserMenu = lazy(() => import('./UserMenu'));
+const Navigation = lazy(() => import('./Navigation'));
+
+
+
 
 export const App = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(selectAuthIsLoggedIn); 
-
-  // useEffect(() => {
-  //   dispatch(fetchContacts());
-  // }, [dispatch]);
+  const isLoggedIn = useSelector(selectAuthIsLoggedIn);
 
   useEffect(() => {
     dispatch(apiRefreshUser());
@@ -29,15 +30,24 @@ export const App = () => {
 
   return (
     <div>
-      <Navigation />
-      {isLoggedIn && <UserMenu />}
-      <Routes>
-      <Route path="/" element={<HomePage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/contacts" element={<PrivateRoute><Contacts /></PrivateRoute>} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>   
+      <Suspense fallback={<Loader className={styles.loader} />}>
+        <Navigation />
+        {isLoggedIn && <UserMenu />}
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/contacts"
+            element={
+              <PrivateRoute>
+                <Contacts />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </div>
   );
 };
