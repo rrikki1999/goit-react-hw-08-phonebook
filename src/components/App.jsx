@@ -13,7 +13,7 @@ import RestrictedRoute from './RestrictedRoute';
 const HomePage = lazy(() => import('../pages/HomePage'));
 const Register = lazy(() => import('../pages/Register'));
 const LoginPage = lazy(() => import('../pages/LoginPage'));
-const Contacts = lazy(() => import('./Contacts'));
+const Contacts = lazy(() => import('../pages/Contacts'));
 const NotFound = lazy(() => import('../pages/NotFound'));
 const UserMenu = lazy(() => import('./UserMenu'));
 const Navigation = lazy(() => import('./Navigation'));
